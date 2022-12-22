@@ -1,0 +1,9 @@
+{
+   "compilerOptions": {
+      "baseUrl": "./src",
+      "target": "ESNEXT",
+      "module": "commonjs",
+      "skipLibCheck": true,
+      "forceConsistentCasingInFileNames": true
+   }
+}
