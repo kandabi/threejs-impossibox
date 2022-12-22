@@ -79,19 +79,28 @@ export class App {
    }
 
    private addLights() {
-      const ambientLight = new AmbientLight(0xffffff, 0.15);
-      const pointLight = new PointLight(0xffffff, 1.15, 50, 0.4);
-      pointLight.position.set(2, 12, 7);
+      const ambientLight = new AmbientLight(0xffffff, 0.1);
+      const pointLight_1 = new PointLight(0xffffff, 0.65, 50, 0.7);
+      pointLight_1.position.set(-5, 12, 10);
+
+      const pointLight_2 = new PointLight(0xffffff, 0.35, 50, 0.7);
+      pointLight_2.position.set(4, 9, 4);
 
       if (isDesktop) {
-         pointLight.castShadow = true;
-         pointLight.shadow.radius = 3;
-         pointLight.shadow.mapSize.height = 512;
-         pointLight.shadow.mapSize.width = 512;
+         pointLight_1.castShadow = true;
+         pointLight_1.shadow.radius = 4;
+         pointLight_1.shadow.mapSize.height = 512;
+         pointLight_1.shadow.mapSize.width = 512;
+
+         pointLight_2.castShadow = true;
+         pointLight_2.shadow.radius = 4;
+         pointLight_2.shadow.mapSize.height = 512;
+         pointLight_2.shadow.mapSize.width = 512;
       }
 
       this.scene.add(ambientLight);
-      this.scene.add(pointLight);
+      this.scene.add(pointLight_1);
+      this.scene.add(pointLight_2);
    }
 
    private onWindowResize() {
