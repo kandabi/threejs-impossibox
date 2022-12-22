@@ -1,4 +1,3 @@
-import { ImpossibleBox } from 'content/impossible-box';
 import {
    AmbientLight,
    Clock,
@@ -13,6 +12,8 @@ import {
    WebGLRenderer,
 } from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
+import { ImpossibleBox } from 'content/impossible-box';
+import { isDesktop } from 'utils/constants';
 
 import './styles/styles.sass';
 
@@ -29,7 +30,7 @@ export class App {
       this.scene = new Scene();
       this.clock = new Clock();
 
-      this.camera = new PerspectiveCamera(50, window.innerWidth / window.innerHeight, 0.001, 200);
+      this.camera = new PerspectiveCamera(50, window.innerWidth / window.innerHeight, 0.01, 200);
       this.camera.position.z = 20;
 
       this.renderer = new WebGLRenderer({
@@ -38,8 +39,10 @@ export class App {
          alpha: true,
       });
 
-      this.renderer.shadowMap.enabled = true;
-      this.renderer.shadowMap.type = PCFSoftShadowMap;
+      if (isDesktop) {
+         this.renderer.shadowMap.enabled = true;
+         this.renderer.shadowMap.type = PCFSoftShadowMap;
+      }
 
       this.renderer.setClearColor(0x000000, 1.0);
 
@@ -76,14 +79,16 @@ export class App {
    }
 
    private addLights() {
-      const ambientLight = new AmbientLight(0xffffff, 0.25);
-      const pointLight = new PointLight(0xffffff, 0.9, 50, 0.4);
-      pointLight.position.set(5, 15, 10);
+      const ambientLight = new AmbientLight(0xffffff, 0.15);
+      const pointLight = new PointLight(0xffffff, 1.0, 50, 0.4);
+      pointLight.position.set(2, 12, 7);
 
-      pointLight.castShadow = true;
-      pointLight.shadow.radius = 4;
-      pointLight.shadow.mapSize.height = 256;
-      pointLight.shadow.mapSize.width = 256;
+      if (isDesktop) {
+         pointLight.castShadow = true;
+         pointLight.shadow.radius = 3;
+         pointLight.shadow.mapSize.height = 512;
+         pointLight.shadow.mapSize.width = 512;
+      }
 
       this.scene.add(ambientLight);
       this.scene.add(pointLight);

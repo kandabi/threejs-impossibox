@@ -20,7 +20,7 @@ const stencilConfig = {
    stencilWrite: true,
 };
 
-let stencilId: number = 5;
+let stencilId: number = 1;
 
 interface ICreatePortal {
    content: Mesh[];
@@ -38,7 +38,7 @@ class Portal {
    }
 
    public create({ portal, content }: ICreatePortal): Group {
-      const returnGroup = new Group();
+      const portalGroup = new Group();
       const hiddenGroup = new Group();
       stencilId++;
 
@@ -72,10 +72,10 @@ class Portal {
          hiddenGroup.add(mesh);
       });
 
-      returnGroup.add(hiddenGroup);
-      returnGroup.add(portalMesh);
+      portalGroup.add(portalMesh);
+      portalGroup.add(hiddenGroup);
 
-      return returnGroup;
+      return portalGroup;
    }
 }
 

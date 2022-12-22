@@ -1,28 +1,26 @@
 import {
    BackSide,
    BoxGeometry,
+   CapsuleGeometry,
    Color,
-   ConeGeometry,
-   CubeTextureLoader,
    DodecahedronGeometry,
+   DoubleSide,
    Group,
    Mesh,
+   MeshBasicMaterial,
    MeshStandardMaterial,
    NearestFilter,
    OctahedronGeometry,
    Scene,
-   ShaderMaterial,
    SphereGeometry,
+   TextureLoader,
    TorusGeometry,
    Vector3,
 } from 'three';
 
-import fragmentShader from '../shaders/fragment.glsl';
-import vertexShader from '../shaders/vertex.glsl';
 import boxTexture from '../assets/boxTexture.png';
 import { Portal } from './portal';
-
-const textures = [boxTexture, boxTexture, boxTexture, boxTexture, boxTexture, boxTexture];
+import { isDesktop } from 'utils/constants';
 
 class ImpossibleBox {
    private portal: Portal;
@@ -46,38 +44,39 @@ class ImpossibleBox {
 
    public render(time: number) {
       this.group.rotation.y += time * 0.15;
-
-      this.meshes.forEach((mesh, index) => {
-         mesh.rotation.z -= time * 0.1 * (index + 1);
-         mesh.rotation.y += time * 0.05 * (index + 1);
-      });
+      if (isDesktop) {
+         this.meshes.forEach((mesh, index) => {
+            mesh.rotation.y += time * 0.05 * (index + 1);
+            mesh.rotation.z -= time * 0.1 * (index + 1);
+         });
+      }
    }
 
    private createEdges() {
-      const cubeTexture = new CubeTextureLoader().load(textures);
-      cubeTexture.minFilter = NearestFilter;
-      cubeTexture.magFilter = NearestFilter;
+      const texture = new TextureLoader().load(boxTexture);
+      texture.minFilter = NearestFilter;
+      texture.magFilter = NearestFilter;
 
       const boxEdges = new Mesh(
          new BoxGeometry(8, 8, 8),
-         new ShaderMaterial({
-            fragmentShader: fragmentShader,
-            vertexShader: vertexShader,
+         new MeshBasicMaterial({
+            map: texture,
             transparent: true,
-            uniforms: {
-               cubeMap: { value: cubeTexture },
-            },
+            side: DoubleSide,
          })
       );
 
-      boxEdges.castShadow = true;
+      if (isDesktop) {
+         boxEdges.castShadow = true;
+      }
 
       this.group.add(boxEdges);
    }
 
    private createPortals() {
-      const backgroundGeometry = new SphereGeometry(16, 16, 30);
+      const backgroundGeometry = new SphereGeometry(12, 12, 12);
 
+      //*** Create backgrounds */
       const background_0 = new Mesh(
          backgroundGeometry,
          new MeshStandardMaterial({
@@ -132,21 +131,22 @@ class ImpossibleBox {
          })
       );
 
+      //*** Create objects */
       this.meshes.push(
          new Mesh(
             new BoxGeometry(3, 3, 3),
             new MeshStandardMaterial({
-               color: new Color(0x5c595b),
+               color: new Color(0xff003c),
             })
          )
       );
 
       this.meshes.push(
          new Mesh(
-            new SphereGeometry(2, 8, 8),
+            new TorusGeometry(1.5, 1, 6, 6),
             new MeshStandardMaterial({
+               color: new Color(0xfc68f7),
                flatShading: true,
-               color: new Color(0x426bff),
             })
          )
       );
@@ -164,7 +164,7 @@ class ImpossibleBox {
          new Mesh(
             new OctahedronGeometry(2, 0),
             new MeshStandardMaterial({
-               color: new Color(0xff003c),
+               color: new Color(0x426bff),
                flatShading: true,
             })
          )
@@ -172,18 +172,19 @@ class ImpossibleBox {
 
       this.meshes.push(
          new Mesh(
-            new ConeGeometry(3, 3, 4),
+            new SphereGeometry(2, 6, 6),
             new MeshStandardMaterial({
                color: new Color(0xf06748),
+               flatShading: true,
             })
          )
       );
 
       this.meshes.push(
          new Mesh(
-            new TorusGeometry(1.5, 1, 6, 6),
+            new CapsuleGeometry(1, 2.5, 1, 6),
             new MeshStandardMaterial({
-               color: new Color(0xffffff),
+               color: new Color(0x8ff2bf),
                flatShading: true,
             })
          )
