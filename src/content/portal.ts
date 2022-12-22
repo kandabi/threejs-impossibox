@@ -1,6 +1,5 @@
 import {
    AlwaysStencilFunc,
-   Color,
    EqualStencilFunc,
    FrontSide,
    Group,
@@ -21,7 +20,7 @@ const stencilConfig = {
    stencilWrite: true,
 };
 
-let stencilId: number = 0;
+let stencilId: number = 5;
 
 interface ICreatePortal {
    content: Mesh[];
@@ -32,10 +31,10 @@ interface ICreatePortal {
 }
 
 class Portal {
-   private portalSize: number;
+   private geometry: PlaneGeometry;
 
    constructor(portalSize) {
-      this.portalSize = portalSize;
+      this.geometry = new PlaneGeometry(portalSize, portalSize);
    }
 
    public create({ portal, content }: ICreatePortal): Group {
@@ -44,9 +43,8 @@ class Portal {
       stencilId++;
 
       const portalMesh = new Mesh(
-         new PlaneGeometry(this.portalSize, this.portalSize),
+         this.geometry,
          new MeshBasicMaterial({
-            color: new Color(0xff0000),
             side: FrontSide,
             colorWrite: false,
             depthWrite: false,
