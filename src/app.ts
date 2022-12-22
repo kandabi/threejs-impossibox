@@ -80,7 +80,7 @@ export class App {
 
    private addLights() {
       const ambientLight = new AmbientLight(0xffffff, 0.15);
-      const pointLight = new PointLight(0xffffff, 1.0, 50, 0.4);
+      const pointLight = new PointLight(0xffffff, 1.15, 50, 0.4);
       pointLight.position.set(2, 12, 7);
 
       if (isDesktop) {
