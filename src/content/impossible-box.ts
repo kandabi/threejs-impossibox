@@ -162,7 +162,7 @@ class ImpossibleBox {
 
       this.meshes.push(
          new Mesh(
-            new OctahedronGeometry(3, 0),
+            new OctahedronGeometry(2, 0),
             new MeshStandardMaterial({
                color: new Color(0xff003c),
                flatShading: true,

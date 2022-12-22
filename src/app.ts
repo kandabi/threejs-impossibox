@@ -3,16 +3,12 @@ import {
    AmbientLight,
    Clock,
    Color,
-   EqualStencilFunc,
-   KeepStencilOp,
    Mesh,
-   MeshBasicMaterial,
    MeshStandardMaterial,
    PCFSoftShadowMap,
    PerspectiveCamera,
    PlaneGeometry,
    PointLight,
-   ReplaceStencilOp,
    Scene,
    WebGLRenderer,
 } from 'three';
@@ -80,13 +76,12 @@ export class App {
    }
 
    private addLights() {
-      const ambientLight = new AmbientLight(0xffffff, 0.3);
-      const pointLight = new PointLight(0xffffff, 0.8, 80, 0.5);
-      pointLight.position.set(0, 60, 0);
+      const ambientLight = new AmbientLight(0xffffff, 0.25);
+      const pointLight = new PointLight(0xffffff, 0.9, 50, 0.4);
+      pointLight.position.set(5, 15, 10);
 
       pointLight.castShadow = true;
-      pointLight.shadow.bias = 0.001;
-      pointLight.shadow.radius = 5;
+      pointLight.shadow.radius = 4;
       pointLight.shadow.mapSize.height = 256;
       pointLight.shadow.mapSize.width = 256;
 
