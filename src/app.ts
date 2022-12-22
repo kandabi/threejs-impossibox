@@ -12,8 +12,6 @@ import {
    Mesh,
    MeshStandardMaterial,
    NearestFilter,
-   NearestMipMapLinearFilter,
-   NearestMipMapNearestFilter,
    OctahedronGeometry,
    PerspectiveCamera,
    PointLight,
@@ -63,6 +61,7 @@ export class App {
       window.addEventListener('resize', this.onWindowResize.bind(this), false);
 
       this.controls = new OrbitControls(this.camera, this.renderer.domElement);
+      this.controls.enablePan = false;
 
       document.body.appendChild(this.renderer.domElement);
       document.body.appendChild(this.stats.dom);
@@ -84,7 +83,7 @@ export class App {
 
    private addBoxEdges() {
       const cubeTexture = new CubeTextureLoader().load(textures);
-      cubeTexture.minFilter = NearestMipMapNearestFilter;
+      cubeTexture.minFilter = NearestFilter;
       cubeTexture.magFilter = NearestFilter;
 
       const boxEdges = new Mesh(
