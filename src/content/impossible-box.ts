@@ -44,12 +44,10 @@ class ImpossibleBox {
 
    public render(time: number) {
       this.group.rotation.y += time * 0.15;
-      if (isDesktop) {
-         this.meshes.forEach((mesh, index) => {
-            mesh.rotation.y += time * 0.05 * (index + 1);
-            mesh.rotation.z -= time * 0.1 * (index + 1);
-         });
-      }
+      this.meshes.forEach((mesh, index) => {
+         mesh.rotation.y += time * 0.05 * (index + 1);
+         mesh.rotation.z -= time * 0.1 * (index + 1);
+      });
    }
 
    private createEdges() {

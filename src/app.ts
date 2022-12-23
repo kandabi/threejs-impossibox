@@ -64,9 +64,9 @@ export class App {
       this.impossibleBox.create();
 
       this.floor = new Mesh(
-         new PlaneGeometry(100, 100, 1, 1),
+         new PlaneGeometry(120, 120, 1, 1),
          new MeshStandardMaterial({
-            color: new Color(0x3d3b3b),
+            color: new Color(0xa6a6a6),
             depthWrite: false,
          })
       );
@@ -80,7 +80,7 @@ export class App {
 
    private addLights() {
       const ambientLight = new AmbientLight(0xffffff, 0.1);
-      const pointLight_1 = new PointLight(0xffffff, 0.65, 50, 0.7);
+      const pointLight_1 = new PointLight(0xffffff, 0.7, 50, 0.7);
       pointLight_1.position.set(-5, 12, 10);
 
       const pointLight_2 = new PointLight(0xffffff, 0.35, 50, 0.7);
