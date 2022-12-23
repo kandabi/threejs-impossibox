@@ -113,8 +113,8 @@ export class App {
       this.controls = new OrbitControls(this.camera, this.renderer.domElement);
       this.controls.enableDamping = true;
       this.controls.enablePan = false;
-      this.controls.dampingFactor = 0.03;
-      this.controls.rotateSpeed = 0.35;
+      this.controls.dampingFactor = 0.012;
+      this.controls.rotateSpeed = 0.5;
       this.controls.maxDistance = 50;
       this.controls.zoomSpeed = 0.7;
    }
