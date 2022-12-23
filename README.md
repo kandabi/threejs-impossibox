@@ -1,4 +1,4 @@
-# [Threejs Impossible Cube](https://threejs-impossible-cube.netlify.app/)
+# [Threejs Impossibox](https://threejs-impossibox.netlify.app/)
 
 ## License
 
