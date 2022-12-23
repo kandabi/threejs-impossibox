@@ -4,9 +4,10 @@ import { terser } from 'rollup-plugin-terser';
 import typescript from '@rollup/plugin-typescript';
 import livereload from 'rollup-plugin-livereload';
 import { string } from 'rollup-plugin-string';
+import htmlTemplate from 'rollup-plugin-generate-html-template';
 import serve from 'rollup-plugin-serve';
 import scss from 'rollup-plugin-scss';
-import html from '@rollup/plugin-html';
+import copy from 'rollup-plugin-copy'
 import url from '@rollup/plugin-url';
 
 const production = !process.env.ROLLUP_WATCH;
@@ -24,10 +25,20 @@ export default {
       commonjs(),
       resolve(),
       scss({ insert: true }),
-      html({ title: 'App', fileName: 'index.html' }),
+      htmlTemplate({
+         template: 'src/index.html',
+         target: `dist/${directory}/index.html`,
+      }),
       typescript({ module: 'ESNext' }),
-      url({ fileName: 'assets/[name][extname]' }),
-      string({ include: '**/*.glsl' }),
+      url({
+         fileName: 'assets/[name][extname]',
+         include: ['**/*.svg', '**/*.png', '**/*.jp(e)?g', '**/*.gif', '**/*.webp',
+            '**/*.gltf', '**/*.glb', '**/*.mp3', '**/*.wav'],
+      }),
+      copy({
+         targets: [{ src: 'public/**', dest: `dist/${directory}/assets` }]
+      }),
+      string({ include: ['**/*.glsl', '**/*.html'] }),
       production && terser(),
       !production && livereload(),
       !production &&

@@ -15,7 +15,7 @@ import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
 import { ImpossibleBox } from 'content/impossible-box';
 import { isDesktop } from 'utils/constants';
 
-import './styles/styles.sass';
+import './styles/styles.scss';
 
 export class App {
    private camera: THREE.PerspectiveCamera;
