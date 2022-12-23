@@ -58,7 +58,7 @@ class ImpossibleBox {
 
    private createEdges() {
       const texture = new TextureLoader().load(boxTexture);
-      texture.minFilter = LinearMipMapLinearFilter;
+      texture.minFilter = NearestFilter;
       texture.magFilter = NearestFilter;
 
       const boxEdges = new Mesh(
