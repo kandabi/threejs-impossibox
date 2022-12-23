@@ -6,10 +6,16 @@ import {
    DodecahedronGeometry,
    DoubleSide,
    Group,
+   LinearFilter,
+   LinearMipMapLinearFilter,
+   LinearMipMapNearestFilter,
+   LinearMipmapNearestFilter,
    Mesh,
    MeshBasicMaterial,
    MeshStandardMaterial,
    NearestFilter,
+   NearestMipmapLinearFilter,
+   NearestMipMapNearestFilter,
    OctahedronGeometry,
    Scene,
    SphereGeometry,
@@ -52,7 +58,7 @@ class ImpossibleBox {
 
    private createEdges() {
       const texture = new TextureLoader().load(boxTexture);
-      texture.minFilter = NearestFilter;
+      texture.minFilter = LinearMipMapLinearFilter;
       texture.magFilter = NearestFilter;
 
       const boxEdges = new Mesh(
