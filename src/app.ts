@@ -116,6 +116,7 @@ export class App {
       this.controls.dampingFactor = 0.012;
       this.controls.rotateSpeed = 0.5;
       this.controls.maxDistance = 50;
+      this.controls.minDistance = 7.5;
       this.controls.zoomSpeed = 0.7;
    }
 
